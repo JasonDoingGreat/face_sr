@@ -55,9 +55,10 @@ def get_features(IDX, index, vertex, k):
 
 def main():
     N = 4000
-    image_size = (128, 128)
+    image_size = (5, 5)
     vertex_index = circle_print(image_size[0], image_size[1])
-    vertex = np.zeros(shape=(image_size[0], image_size[1], 2))
+
+    vertex = np.zeros(shape=(image_size[0] * image_size[1], 2))
     for i in range(image_size[0]):
         for j in range(image_size[1]):
             vertex[vertex_index[i, j], :] = [i, j]
@@ -66,10 +67,12 @@ def main():
 
     vertex_1 = vertex
     vertex_2 = vertex
-    nbrs = NearestNeighbors(n_neighbors=k, algorithm='ball_tree')
+    nbrs = NearestNeighbors(n_neighbors=k, algorithm='kd_tree')
     nbrs.fit(vertex_1)
     distances, indices = nbrs.kneighbors(vertex_2)
 
+    print(indices)
 
 
-
+if __name__ == '__main__':
+    main()

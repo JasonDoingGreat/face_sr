@@ -3,6 +3,7 @@
 .idea
 .DS_Store
 
+__pycache__/
 DLUT_Dataset/
 LR_2x/
 LR_4x/
