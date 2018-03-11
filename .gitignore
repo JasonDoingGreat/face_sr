@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+#
+.idea
+.DS_Store
+
+DLUT_Dataset/
+LR_2x/
+LR_4x/
+LR_8x/
+SR/
