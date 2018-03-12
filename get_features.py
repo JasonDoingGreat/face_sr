@@ -1,7 +1,9 @@
+import os
 import cv2
 import numpy as np
 from circle_print import circle_print
 from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import KDTree
 
 
 def get_features(IDX, index, vertex, k):
@@ -46,6 +48,12 @@ def get_features(IDX, index, vertex, k):
         feature_4x[i, :] = tmp_4x
         feature_8x[i, :] = tmp_8x
 
+    if not os.path.exists("feature"):
+        os.makedirs("feature")
+
+    if not os.path.exists("label"):
+        os.makedirs("label")
+
     np.save("feature/feature_2x_"+str(index)+".npy", feature_2x)
     np.save("feature/feature_4x_"+str(index)+".npy", feature_2x)
     np.save("feature/feature_8x_"+str(index)+".npy", feature_2x)
@@ -65,13 +73,17 @@ def main():
 
     k = 15
 
+    print(vertex_index)
+
     vertex_1 = vertex
     vertex_2 = vertex
-    nbrs = NearestNeighbors(n_neighbors=k, algorithm='kd_tree')
-    nbrs.fit(vertex_1)
-    distances, indices = nbrs.kneighbors(vertex_2)
+    # nbrs = NearestNeighbors(n_neighbors=k, algorithm='kd_tree', metric='euclidean', leaf_size=50)
+    # nbrs.fit(vertex_1)
+    # distances, indices = nbrs.kneighbors(vertex_2)
 
-    print(indices)
+    tree = KDTree(vertex_1, leaf_size=50, metric='euclidean')
+    dist, ind = tree.query(vertex_2, k=k)
+    print(ind)
 
     """
     Should be the same as this.
