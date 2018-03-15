@@ -11,6 +11,8 @@ opencv-contrib-python = "*"
 scikit-learn = "*"
 numpy = "*"
 scipy = "*"
+tensorflow = "*"
+"html5lib" = "*"
 
 
 [dev-packages]
